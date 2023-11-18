@@ -9,9 +9,9 @@ script_name = arguments[0]
 # The rest are the arguments
 arguments = arguments[1:]
 
-file = open('ecoli/union/1-2union.txt', 'r')
+file = open(arguments[0], 'r')
 
-file1 = open('ecoli/union/1-3union.txt', 'r')
+file1 = open(arguments[1], 'r')
 
 intListStart = []
 intListEnd = []
@@ -76,7 +76,12 @@ while index<len(intListStart) and index1<len(intListStart1):
 # print(" ")
 # print(intersectComboEnd[0:10])
 
-file = open(sys.argv[1], 'w')
+if len(intersectComboStart) == len(intersectComboEnd):
+    print("Success!")
+else:
+    print("Error!")
+
+file = open(arguments[2], 'w')
 
 file.write(str(intersectComboStart))
 file.write("\n")
