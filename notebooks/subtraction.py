@@ -9,24 +9,24 @@ script_name = arguments[0]
 # The rest are the arguments
 arguments = arguments[1:]
 
-file = open('ecoli/union/1-2union.txt', 'r')
+file = open(arguments[0], 'r')
 
-file1 = open('ecoli/union/1-3union.txt', 'r')
+file1 = open(arguments[1], 'r')
 
-intListStart = []
-intListEnd = []
+intListStartC = []
+intListEndC = []
 lineNumber = 0
-intListStart1 = []
-intListEnd1 = []
+intListStartA = []
+intListEndA = []
 
 for line in file:
     lineNumber = lineNumber + 1
     lineEdit = line.strip().strip("]").lstrip("[").split(", ")
     for i in lineEdit:
         if lineNumber == 1:
-            intListStart.append(int(i))
+            intListStartC.append(int(i))
         elif lineNumber == 2:
-            intListEnd.append(int(i))
+            intListEndC.append(int(i))
 
 lineNumber = 0
 for line in file1:
@@ -34,9 +34,9 @@ for line in file1:
     lineEdit = line.strip().strip("]").lstrip("[").split(", ")
     for i in lineEdit:
         if lineNumber == 1:
-            intListStart1.append(int(i))
+            intListStartA.append(int(i))
         elif lineNumber == 2:
-            intListEnd1.append(int(i))
+            intListEndA.append(int(i))
 
 # print(intListStart)
 # print(intListEnd)
@@ -44,42 +44,35 @@ for line in file1:
 # print(intListStart1)
 # print(intListEnd1)
 
-index = 0
-index1 = 0
-intersectComboStart = []
-intersectComboEnd = []
+indexC = 0
+indexA = 0
+subtractComboStart = []
+subtractComboEnd = []
 
-while index<len(intListStart) and index1<len(intListStart1):
-    if intListStart[index] > intListEnd1[index1]:
-        index1 = index1 + 1
-    elif intListStart1[index1] > intListEnd[index]:
-        index = index + 1
+while indexC<len(intListStartC) and indexA<len(intListStartA):
+    if intListStartC[indexC] > intListEndA[indexA]: # and :
+        # subtractComboStart.append(intListStartA[indexA])
+        # subtractComboEnd.append(intListEndA[indexA])
+        indexA = indexA + 1
     else:
-        if intListStart[index] < intListStart1[index1] and intListEnd[index] < intListEnd1[index1]:
-            intersectComboStart.append(intListStart1[index1])
-            intersectComboEnd.append(intListEnd[index])
-            index = index + 1
-        elif intListStart[index] < intListStart1[index1] and intListEnd[index] >= intListEnd1[index1]:
-            intersectComboStart.append(intListStart1[index1])
-            intersectComboEnd.append(intListEnd1[index1])
-            index1 = index1 + 1
-        elif intListStart[index] >= intListStart1[index1] and intListEnd[index] < intListEnd1[index1]:
-            intersectComboStart.append(intListStart[index])
-            intersectComboEnd.append(intListEnd[index])
-            index = index + 1
-        else:
-            intersectComboStart.append(intListStart[index])
-            intersectComboEnd.append(intListEnd1[index1])
-            index1 = index1 + 1
+        if intListStartA[indexA] < intListStartC[indexC]-1:
+            subtractComboStart.append(intListStartA[indexA])
+            subtractComboEnd.append(intListStartC[indexC]-1)
+        indexC = indexC + 1
 
-# print(intersectComboStart[0:10])
-# print(" ")
-# print(intersectComboEnd[0:10])
+while indexA<len(intListStartA):
+    subtractComboStart.append(intListStartA[indexA])
+    subtractComboEnd.append(intListEndA[indexA])
+    indexA = indexA + 1
 
-file = open(sys.argv[1], 'w')
+print(subtractComboStart[0:10])
+print(" ")
+print(subtractComboEnd[0:10])
 
-file.write(str(intersectComboStart))
+file = open(arguments[2], 'w')
+
+file.write(str(subtractComboStart))
 file.write("\n")
-file.write(str(intersectComboEnd))
+file.write(str(subtractComboEnd))
 
 file.close()
