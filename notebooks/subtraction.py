@@ -51,18 +51,22 @@ subtractComboEnd = []
 
 while indexC<len(intListStartC) and indexA<len(intListStartA):
     if intListStartC[indexC] > intListEndA[indexA]: # and :
-        # subtractComboStart.append(intListStartA[indexA])
-        # subtractComboEnd.append(intListEndA[indexA])
+        if intListStartA[indexA] <= intListEndA[indexA]:
+            subtractComboStart.append(intListStartA[indexA])
+            subtractComboEnd.append(intListEndA[indexA])
         indexA = indexA + 1
     else:
-        if intListStartA[indexA] < intListStartC[indexC]-1:
+        if intListStartA[indexA] < intListStartC[indexC]:
             subtractComboStart.append(intListStartA[indexA])
             subtractComboEnd.append(intListStartC[indexC]-1)
+        if intListStartA[indexA] < intListEndC[indexC]:
+            intListStartA[indexA]=intListEndC[indexC]+1
         indexC = indexC + 1
 
 while indexA<len(intListStartA):
-    subtractComboStart.append(intListStartA[indexA])
-    subtractComboEnd.append(intListEndA[indexA])
+    if intListStartA[indexA]<=intListEndA[indexA]:
+        subtractComboStart.append(intListStartA[indexA])
+        subtractComboEnd.append(intListEndA[indexA])
     indexA = indexA + 1
 
 print(subtractComboStart[0:10])
