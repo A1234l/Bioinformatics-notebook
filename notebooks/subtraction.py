@@ -9,6 +9,7 @@ script_name = arguments[0]
 # The rest are the arguments
 arguments = arguments[1:]
 
+# Subtract file from file1 (file-file1)
 file = open(arguments[0], 'r')
 
 file1 = open(arguments[1], 'r')
